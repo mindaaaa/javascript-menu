@@ -1,4 +1,3 @@
-import { SAMPLE } from '../App.js';
 import { Random } from '@woowacourse/mission-utils';
 
 const categoryMapping = {
