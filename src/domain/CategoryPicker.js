@@ -1,6 +1,39 @@
-// 점심 카테고리를 정하는 클래스
-// 2번씩 넣고 섞어서 앞에서부터 뽑는다.
+import { SAMPLE } from '../App.js';
+import { Random } from '@woowacourse/mission-utils';
 
-class CategoryPicker {}
+const categoryMapping = {
+  1: '일식',
+  2: '한식',
+  3: '중식',
+  4: '아시안',
+  5: '양식',
+};
+
+const categoryCount = {
+  일식: 0,
+  한식: 0,
+  중식: 0,
+  아시안: 0,
+  양식: 0,
+};
+
+class CategoryPicker {
+  pickCategory() {
+    while (true) {
+      const randomNumber = Random.pickNumberInRange(1, 5);
+      const category = categoryMapping[randomNumber];
+
+      if (this.#isCategoryAvailable(category)) {
+        categoryCount[category]++;
+
+        return category;
+      }
+    }
+  }
+
+  #isCategoryAvailable(category) {
+    return categoryCount[category] < 2;
+  }
+}
 
 export default CategoryPicker;
