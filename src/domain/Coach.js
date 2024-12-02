@@ -1,26 +1,28 @@
 // 코치들의 점심 메뉴를 갖고 있는 값객체
 
 class Coach {
+  #dislikedMenus;
+  #eatenMenus;
+
   constructor(name, menus) {
     this.name = name;
     this.menus = menus;
-    this.dislikedMenus = []; // 못 먹는 메뉴
-    this.eatenMenus = []; // 먹은 메뉴
-    this.availableMenus = this.#removeDislikedMenus(this.dislikedMenus, menus); // 먹을 수 있는 메뉴
+    this.#dislikedMenus = []; // 못 먹는 메뉴
+    this.#eatenMenus = []; // 먹은 메뉴
   }
 
-  getAvailableMenus(dislikeMenus, eatenMenus) {
+  getAvailableMenus() {
     return this.menus
-      .filter(this.#removeDislikedMenus)
-      .filter(this.#removeEatenMenu);
+      .filter((menu) => !this.#dislikedMenus.includes(menu))
+      .filter((menu) => !this.#eatenMenus.includes(menu));
   }
 
-  #removeDislikedMenus(dislikeMenus, menus) {
-    return menus.filter((menu) => !dislikeMenus.includes(menu));
+  setDislikedMenus(dislikedMenus) {
+    this.#dislikedMenus = dislikedMenus.split(',').map((menu) => menu.trim());
   }
 
-  #removeEatenMenu(eatenMenu, menus) {
-    return menus.filter((menu) => !eatenMenu.includes(menu));
+  setEatenMenus(eatenMenu) {
+    this.#eatenMenus.push(eatenMenu);
   }
 }
 
