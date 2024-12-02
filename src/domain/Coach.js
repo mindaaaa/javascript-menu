@@ -24,6 +24,10 @@ class Coach {
   setEatenMenus(eatenMenu) {
     this.#eatenMenus.push(eatenMenu);
   }
+
+  getEatenMenus() {
+    return [...this.#eatenMenus];
+  }
 }
 
 export default Coach;
