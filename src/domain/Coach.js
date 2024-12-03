@@ -4,6 +4,7 @@ class Coach {
   #dislikedMenus;
   #eatenMenus;
 
+  // 카테고리별로만 가져오는 기능도 추가
   constructor(name, menus) {
     this.name = name;
     this.menus = menus;
