@@ -17,6 +17,10 @@ const categoryCount = {
 };
 
 class CategoryPicker {
+  constructor(dailyCategoryCount) {
+    this.dailyCategoryCount = dailyCategoryCount;
+  }
+
   pickCategory() {
     while (true) {
       const randomNumber = Randoms.pickNumberInRange(1, 5);
