@@ -5,16 +5,35 @@ class LunchManager {
   constructor(coaches, categories) {
     this.coaches = coaches;
     this.categories = categories;
-    this.categoryPicker = new Category();
-    this.dailyCategoryCount = categories.reduce((acc, category) => {
-      acc[categories] = 0;
+    this.categoryPicker = new Category(this.getDailyCategoryCount());
+    this.result = [];
+
+    this.initializeCategories();
+  }
+
+  getDailyCategoryCount() {
+    return this.categories.reduce((acc, category) => {
+      acc[category] = 0;
       return acc;
     }, {}); // 카테고리별 사용 횟수
-    this.result = [];
+  }
+
+  initializeCategories() {
+    this.coaches.forEach((coach) => {
+      this.categories.forEach((category) => {
+        const dislikedMenus = coach.getDislikedMenusByCategory(category.name);
+        dislikedMenus.forEach((menu) => {
+          category.removeMenu(menu); // 카테고리에서 못 먹는 메뉴 제거
+        });
+      });
+    });
   }
 
   recommendDailyMenu() {
-    const category = this.pickCategory();
+    const categoryName = this.categoryPicker.pickCategory();
+    const category = this.categories.find(
+      (category) => category.name === categoryName
+    );
     const dailyMenus = {};
 
     // 코치별 메뉴 추천
@@ -22,13 +41,23 @@ class LunchManager {
       const menuPlanner = new MenuPlanner(coach);
       const recommendedMenu = menuPlanner.planMenu(category);
       dailyMenus[coach.name] = recommendedMenu;
+
+      coach.addEatenMenu(recommendedMenu); // 코치 상태 업데이트
+      category.removeMenu(recommendedMenu); // 카테고리 상태 업데이트
     });
 
-    this.result.push({ category, menus: dailyMenus });
-    return { category, menus: dailyMenus };
+    this.result.push({ category: category.name, menus: dailyMenus });
+    return { category: category.name, menus: dailyMenus };
   }
 
-  pickCategory() {}
+  startRecommendation(days = 5) {
+    const weeklyResult = [];
+    for (let day = 1; day <= days; day++) {
+      const dailyResult = this.recommendDailyMenu();
+      weeklyResult.push(dailyResult);
+    }
+    return weeklyResult;
+  }
 }
 
 export default LunchManager;
