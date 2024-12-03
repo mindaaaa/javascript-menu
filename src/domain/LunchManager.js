@@ -5,7 +5,7 @@ class LunchManager {
   constructor(coaches, categories) {
     this.coaches = coaches;
     this.categories = categories;
-    this.categoryPicker = new Category(this.getDailyCategoryCount());
+    this.categoryPicker = new CategoryPicker(this.getDailyCategoryCount());
     this.result = [];
 
     this.initializeCategories();
