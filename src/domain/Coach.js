@@ -4,8 +4,8 @@ import { menuCategoryMap } from './menuCategoryMap';
 class Coach {
   constructor(name, categories) {
     this.name = name;
-    this.categories = categories;
     this.dislikedMenus = {}; // 못 먹는 메뉴
+    this.eatenMenus = [];
   }
 
   // ['우동','스시'] 무슨 카테고리일까?
@@ -25,6 +25,10 @@ class Coach {
 
   getAllDislikedMenus() {
     return this.dislikedMenus;
+  }
+
+  addEatenMenu(menu) {
+    this.eatenMenus.push(menu);
   }
 }
 
