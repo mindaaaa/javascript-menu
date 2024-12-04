@@ -1,11 +1,11 @@
 import Menu from './Menu.js';
 // 못 먹는 메뉴 갖고있기
 class Coach {
-  constructor(name, menu) {
+  constructor(name) {
     this.name = name;
     this.menu = new Menu();
     this.dislikedMenus = {}; // 못 먹는 메뉴
-    this.eatenMenus = [];
+    this.availableMenus = {};
   }
 
   // ['우동','스시'] 무슨 카테고리일까?

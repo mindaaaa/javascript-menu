@@ -31,6 +31,14 @@ class Menu {
   getCategoryByMenu(menu) {
     return this.#menuCategoryMap[menu];
   }
+
+  // 모든 카테고리별 메뉴 반환
+  getAllMenus() {
+    return Object.entries(this.#sample).reduce((acc, [category, menus]) => {
+      acc[category] = menus.split(',').map((menu) => menu.trim());
+      return acc;
+    }, {});
+  }
 }
 
 export default Menu;
