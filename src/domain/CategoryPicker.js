@@ -8,17 +8,17 @@ const categoryMapping = {
   5: '양식',
 };
 
-const categoryCount = {
+const createCategoryCount = () => ({
   일식: 0,
   한식: 0,
   중식: 0,
   아시안: 0,
   양식: 0,
-};
+});
 
 class CategoryPicker {
-  constructor(dailyCategoryCount) {
-    this.dailyCategoryCount = dailyCategoryCount;
+  constructor(weeklyCategoryCount) {
+    this.weeklyCategoryCount = weeklyCategoryCount || createCategoryCount();
   }
 
   pickCategory() {
@@ -27,7 +27,7 @@ class CategoryPicker {
       const category = categoryMapping[randomNumber];
 
       if (this.#isCategoryAvailable(category)) {
-        categoryCount[category]++;
+        weeklyCategoryCount[category]++;
 
         return category;
       }

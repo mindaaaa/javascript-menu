@@ -1,25 +1,23 @@
 import CategoryPicker from '../../src/domain/CategoryPicker.js';
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Randoms } from '@woowacourse/mission-utils';
 
 jest.mock('@woowacourse/mission-utils', () => ({
-  Random: {
+  Randoms: {
     pickNumberInRange: jest.fn(),
-    shuffle: jest.fn(),
   },
 }));
 
 const mockRandoms = (numbers) => {
-  MissionUtils.Random.pickNumberInRange = jest.fn();
+  Randoms.pickNumberInRange.mockReset();
   numbers.reduce((acc, number) => {
     return acc.mockReturnValueOnce(number);
-  }, MissionUtils.Random.pickNumberInRange);
+  }, Randoms.pickNumberInRange);
 };
 
-describe.skip('CategoryPicker 클래스 테스트', () => {
+describe('CategoryPicker 클래스 테스트', () => {
   let categoryPicker, dailyCategoryCount;
 
   beforeEach(() => {
-    // 카테고리 사용 횟수
     dailyCategoryCount = {
       일식: 0,
       한식: 0,
@@ -31,29 +29,32 @@ describe.skip('CategoryPicker 클래스 테스트', () => {
   });
 
   test('pickCategory는 랜덤으로 선택 가능한 카테고리를 반환한다.', () => {
+    // given
     mockRandoms([2, 3, 1]);
 
+    // when
     const category1 = categoryPicker.pickCategory();
     const category2 = categoryPicker.pickCategory();
     const category3 = categoryPicker.pickCategory();
 
+    // then
     expect(category1).toBe('한식');
     expect(category2).toBe('중식');
     expect(category3).toBe('일식');
-
     expect(dailyCategoryCount['한식']).toBe(1);
     expect(dailyCategoryCount['중식']).toBe(1);
     expect(dailyCategoryCount['일식']).toBe(1);
   });
 
   test('pickCategory는 사용할 수 없는 카테고리를 건너뛴다.', () => {
-    // 한식이 이미 두 번 선택됨
-    dailyCategoryCount['한식'] = 2;
-
+    // given
+    dailyCategoryCount['한식'] = 2; // 한식은 이미 두 번 선택됨
     mockRandoms([2, 3]);
 
+    // when
     const category = categoryPicker.pickCategory();
 
+    // then
     expect(category).toBe('중식'); // 한식(2)은 건너뛰고 중식(3) 선택
     expect(dailyCategoryCount['중식']).toBe(1);
   });
