@@ -5,6 +5,7 @@ class Coach {
     this.name = name;
     this.menu = new Menu();
     this.dislikedMenus = {}; // 못 먹는 메뉴
+    this.eatenMenus = {};
     this.availableMenus = {};
   }
 
@@ -35,6 +36,14 @@ class Coach {
   // 카테고리에서 먹을 수 있는 메뉴 가져오기
   getAvailableMenusByCategory(category) {
     return this.availableMenus[category] || [];
+  }
+
+  addEatenMenu(menu) {
+    const category = this.menu.getCategoryByMenu(menu);
+    if (!this.eatenMenus[category]) {
+      this.eatenMenus[category] = [];
+    }
+    this.eatenMenus[category].push(menu);
   }
 }
 
