@@ -1,10 +1,10 @@
-import CategoryPicker from './CategoryPicker.js';
-import MenuPlanner from './MenuPlanner.js';
+import CategoryPicker from '../domain/CategoryPicker.js';
+import MenuPlanner from '../domain/MenuPlanner.js';
 // 하루 단위의 로직 흐름(카테고리 , 메뉴 추천 , 기록)을 담당한다.
 class LunchManager {
   constructor(coaches) {
     this.coaches = coaches;
-    this.categoryPicker = new CategoryPicker(this.getDailyCategoryCount());
+    this.categoryPicker = new CategoryPicker();
     this.result = [];
   }
 
@@ -17,6 +17,7 @@ class LunchManager {
     this.coaches.forEach((coach) => {
       const menuPlanner = new MenuPlanner(coach);
       const recommendedMenu = menuPlanner.planMenu(category);
+
       dailyMenus[coach.name] = recommendedMenu;
 
       coach.removeEatenMenu(category, recommendedMenu); // 코치 상태 업데이트

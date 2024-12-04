@@ -43,7 +43,7 @@ const expectLogContains = (received, logs) => {
   });
 };
 
-describe.skip('점심 메뉴 테스트', () => {
+describe('점심 메뉴 테스트', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });

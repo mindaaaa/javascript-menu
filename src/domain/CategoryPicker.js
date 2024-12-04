@@ -28,7 +28,6 @@ class CategoryPicker {
 
       if (this.#isCategoryAvailable(category)) {
         this.weeklyCategoryCount[category]++;
-
         return category;
       }
     }
