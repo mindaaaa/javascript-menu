@@ -17,18 +17,24 @@ class Coach {
       }
       this.dislikedMenus[category].push(menu);
     });
+
+    this.initializeAvailableMenus(); // 코치별 먹을 수 있는 메뉴 초기화
   }
 
-  getDislikedMenusByCategory(category) {
-    return this.dislikedMenus[category] || [];
+  // 먹을 수 있는 배열 초기화
+  initializeAvailableMenus() {
+    const categories = Obejct.keys(this.menu.getAllMenus());
+    categories.forEach((category) => {
+      const menusByCategory = this.menu.getMenuByCategory(category);
+      this.availableMenus[category] = menusByCategory.filter(
+        (menu) => !this.dislikedMenus[category].includes(menu)
+      );
+    });
   }
 
-  getAllDislikedMenus() {
-    return this.dislikedMenus;
-  }
-
-  addEatenMenu(menu) {
-    this.eatenMenus.push(menu);
+  // 카테고리에서 먹을 수 있는 메뉴 가져오기
+  getAvailableMenusByCategory(category) {
+    return this.availableMenus[category] || [];
   }
 }
 
