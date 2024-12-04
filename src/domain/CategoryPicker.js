@@ -27,7 +27,7 @@ class CategoryPicker {
       const category = categoryMapping[randomNumber];
 
       if (this.#isCategoryAvailable(category)) {
-        weeklyCategoryCount[category]++;
+        this.weeklyCategoryCount[category]++;
 
         return category;
       }
@@ -35,7 +35,7 @@ class CategoryPicker {
   }
 
   #isCategoryAvailable(category) {
-    return categoryCount[category] < 2;
+    return this.weeklyCategoryCount[category] < 2;
   }
 }
 
