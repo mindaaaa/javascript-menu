@@ -1,4 +1,5 @@
 import MenuPlanner from '../../src/domain/MenuPlanner';
+import Coach from '../../src/domain/Coach';
 import { Random } from '@woowacourse/mission-utils';
 
 jest.mock('@woowacourse/mission-utils', () => ({
@@ -18,23 +19,27 @@ const mockShuffles = (rows) => {
   }, Random.shuffle);
 };
 
-describe.skip('MenuPlanner 테스트', () => {
-  let menuPlanner;
+describe('MenuPlanner 클래스 테스트', () => {
+  let menuPlanner, coach;
 
   beforeEach(() => {
-    menuPlanner = new MenuPlanner();
+    coach = new Coach('토미');
+    coach.setDislikedMenus(['김밥']);
+    menuPlanner = new MenuPlanner(coach);
   });
 
-  test('shuffle 동작을 모킹하여 예상 결과를 확인한다.', () => {
-    mockShuffles([
-      [1, [1, 2, 3]],
-      [2, [2, 3, 4]],
-    ]);
+  test('planMenu는 카테고리 내에서 추천 가능한 메뉴를 반환한다.', () => {
+    // given
+    const category = '한식';
+    const availableMenus = coach.getAvailableMenusByCategory(category);
 
-    const result1 = Random.shuffle([1, 2, 3]);
-    const result2 = Random.shuffle([2, 3, 4]);
+    mockShuffles([[availableMenus[0], availableMenus]]);
 
-    expect(result1).toEqual([1, 2, 3]);
-    expect(result2).toEqual([2, 3, 4]);
+    // when
+    const recommendedMenu = menuPlanner.planMenu(category);
+
+    // then
+    expect(Random.shuffle).toHaveBeenCalledWith(availableMenus); // TODO: 이 부분 학습하기
+    expect(recommendedMenu).toBe(availableMenus[0]);
   });
 });
