@@ -1,10 +1,10 @@
 import Menu from './Menu.js';
-// 못 먹는 메뉴 갖고있기
+
 class Coach {
   constructor(name) {
     this.name = name;
     this.menu = new Menu();
-    this.dislikedMenus = {}; // 못 먹는 메뉴
+    this.dislikedMenus = {};
     this.availableMenus = {};
   }
 
@@ -21,7 +21,6 @@ class Coach {
     this.initializeAvailableMenus(); // 코치별 먹을 수 있는 메뉴 초기화
   }
 
-  // 먹을 수 있는 배열 초기화
   initializeAvailableMenus() {
     const categories = Object.keys(this.menu.getAllMenus());
     categories.forEach((category) => {

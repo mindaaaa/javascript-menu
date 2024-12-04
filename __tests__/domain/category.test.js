@@ -1,26 +1,34 @@
 import Category from '../../src/domain/Category.js';
 import Coach from '../../src/domain/Coach.js';
 
-describe.skip('Category 클래스 테스트', () => {
+describe('Category 클래스 테스트', () => {
   let category, coach;
 
   beforeEach(() => {
-    category = new Category('한식', ['김밥', '비빔밥', '불고기', '김치찌개']);
     coach = new Coach('토미');
+    coach.setDislikedMenus(['김밥', '비빔밥']);
+    category = new Category('한식', coach);
   });
 
   test('getAvailableMenus는 코치의 조건에 따라 추천 가능한 메뉴를 반환한다.', () => {
-    // 코치의 못 먹는 메뉴와 먹은 메뉴
-    coach.setDislikedMenus(['김밥']);
-    coach.addEatenMenu('비빔밥');
+    // given
+    coach.menu.getMenuByCategory('한식');
+    coach.removeEatenMenu('한식', '불고기');
 
-    const availableMenus = category.getAvailableMenus(coach);
-    expect(availableMenus).toEqual(['불고기', '김치찌개']);
-  });
+    // when
+    const result = category.getAvailableMenus();
 
-  test('removeEatenMenu는 카테고리에서 먹은 메뉴를 제거한다.', () => {
-    category.removeEatenMenu('김밥');
-
-    expect(category.menus).toEqual(['비빔밥', '불고기', '김치찌개']);
+    // then
+    expect(result).not.toContain('김밥'); // 못 먹는 메뉴 제외
+    expect(result).not.toContain('비빔밥'); // 못 먹는 메뉴 제외
+    expect(result).not.toContain('불고기'); // 먹은 메뉴 제외
+    expect(result).toEqual([
+      '김치찌개',
+      '쌈밥',
+      '된장찌개',
+      '칼국수',
+      '떡볶이',
+      '제육볶음',
+    ]); // 추천 가능한 메뉴만 반환
   });
 });
