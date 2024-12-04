@@ -39,8 +39,8 @@ class Coach {
 
   // 먹은 메뉴 filter
   removeEatenMenu(category, eatenMenu) {
-    this.availableMenus[category] = this.availableMenus.filter(
-      menu !== eatenMenu
+    this.availableMenus[category] = this.availableMenus[category].filter(
+      (menu) => menu !== eatenMenu
     );
   }
 }
