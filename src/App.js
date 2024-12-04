@@ -23,10 +23,14 @@ class App {
 
       //못 먹는 메뉴 입력
       for (const coach of coaches) {
-        const dislikedMenus = await ConsoleInput.read(
+        const dislikedMenusInput = await ConsoleInput.read(
           `${coach.name}(이)가 못 먹는 메뉴를 입력해 주세요.\n`
         );
-        coach.setDislikedMenus(dislikedMenus, this.getMenuCategoryMap());
+
+        const dislikedMenus = dislikedMenusInput
+          .split(',')
+          .map((menu) => menu.trim());
+        coach.setDislikedMenus(dislikedMenus);
       }
 
       //런치매니저

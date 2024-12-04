@@ -1,4 +1,4 @@
-import CategoryPicker from '../src/domain/CategoryPicker.js';
+import CategoryPicker from '../../src/domain/CategoryPicker.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
 
 jest.mock('@woowacourse/mission-utils', () => ({

@@ -1,5 +1,5 @@
-import Category from '../src/domain/Category.js';
-import Coach from '../src/domain/Coach.js';
+import Category from '../../src/domain/Category.js';
+import Coach from '../../src/domain/Coach.js';
 
 describe.skip('Category 클래스 테스트', () => {
   let category, coach;

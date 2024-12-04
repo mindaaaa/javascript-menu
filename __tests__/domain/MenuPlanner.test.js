@@ -1,3 +1,5 @@
+import MenuPlanner from '../../src/domain/MenuPlanner';
+
 const mockShuffles = (rows) => {
   MissionUtils.Random.shuffle = jest.fn();
 
@@ -10,6 +12,12 @@ const mockShuffles = (rows) => {
 };
 
 describe.skip('랜덤 섞기 테스트', () => {
+  let menuPlanner;
+
+  beforeEach(() => {
+    menuPlanner = new MenuPlanner();
+  });
+
   test('shuffle 동작을 모킹하여 예상 결과를 확인한다.', () => {
     mockShuffles([
       [1, [1, 2, 3]],
