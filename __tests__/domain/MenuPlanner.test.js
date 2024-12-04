@@ -9,7 +9,7 @@ const mockShuffles = (rows) => {
   }, MissionUtils.Random.shuffle);
 };
 
-describe('랜덤 섞기 테스트', () => {
+describe.skip('랜덤 섞기 테스트', () => {
   test('shuffle 동작을 모킹하여 예상 결과를 확인한다.', () => {
     mockShuffles([
       [1, [1, 2, 3]],

@@ -12,7 +12,7 @@ class Menu {
       양식: '라자냐, 그라탱, 뇨끼, 끼슈, 프렌치 토스트, 바게트, 스파게티, 피자, 파니니',
     };
 
-    this.#menuCategoryMap = Object.entries(SAMPLE).reduce(
+    this.#menuCategoryMap = Object.entries(this.#sample).reduce(
       (map, [category, menus]) => {
         menus.split(', ').forEach((menu) => {
           map[menu] = category;
