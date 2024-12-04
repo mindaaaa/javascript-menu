@@ -1,17 +1,17 @@
 import CategoryPicker from '../../src/domain/CategoryPicker.js';
-import { Randoms } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 
 jest.mock('@woowacourse/mission-utils', () => ({
-  Randoms: {
+  Random: {
     pickNumberInRange: jest.fn(),
   },
 }));
 
-const mockRandoms = (numbers) => {
-  Randoms.pickNumberInRange.mockReset();
+const mockRandom = (numbers) => {
+  Random.pickNumberInRange.mockReset();
   numbers.reduce((acc, number) => {
     return acc.mockReturnValueOnce(number);
-  }, Randoms.pickNumberInRange);
+  }, Random.pickNumberInRange);
 };
 
 describe('CategoryPicker 클래스 테스트', () => {
@@ -30,7 +30,7 @@ describe('CategoryPicker 클래스 테스트', () => {
 
   test('pickCategory는 랜덤으로 선택 가능한 카테고리를 반환한다.', () => {
     // given
-    mockRandoms([2, 3, 1]);
+    mockRandom([2, 3, 1]);
 
     // when
     const category1 = categoryPicker.pickCategory();
@@ -49,7 +49,7 @@ describe('CategoryPicker 클래스 테스트', () => {
   test('pickCategory는 사용할 수 없는 카테고리를 건너뛴다.', () => {
     // given
     dailyCategoryCount['한식'] = 2; // 한식은 이미 두 번 선택됨
-    mockRandoms([2, 3]);
+    mockRandom([2, 3]);
 
     // when
     const category = categoryPicker.pickCategory();

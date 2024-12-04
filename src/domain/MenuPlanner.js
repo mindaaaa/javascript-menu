@@ -1,4 +1,4 @@
-import { Randoms } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 
 class MenuPlanner {
   constructor(coach) {
@@ -9,7 +9,7 @@ class MenuPlanner {
     const availableMenus = this.coach.getAvailableMenus();
     const categoryMenus = availableMenus[category];
 
-    return Randoms.shuffle(categoryMenus)[0];
+    return Random.shuffle(categoryMenus)[0];
   }
 }
 

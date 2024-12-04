@@ -1,5 +1,5 @@
-const MissionUtils = require('@woowacourse/mission-utils');
-const App = require('../src/App');
+import { MissionUtils } from '@woowacourse/mission-utils';
+import App from '../src/App.js'; // .js 확장자 포함
 
 const mockQuestions = (answers) => {
   MissionUtils.Console.readLine = jest.fn();

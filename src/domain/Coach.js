@@ -1,4 +1,4 @@
-import Menu from './Menu';
+import Menu from './Menu.js';
 // 못 먹는 메뉴 갖고있기
 class Coach {
   constructor(name, menu) {

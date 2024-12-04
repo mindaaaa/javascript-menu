@@ -1,4 +1,4 @@
-import { Randoms } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 
 const categoryMapping = {
   1: '일식',
@@ -23,7 +23,7 @@ class CategoryPicker {
 
   pickCategory() {
     while (true) {
-      const randomNumber = Randoms.pickNumberInRange(1, 5);
+      const randomNumber = Random.pickNumberInRange(1, 5);
       const category = categoryMapping[randomNumber];
 
       if (this.#isCategoryAvailable(category)) {

@@ -1,5 +1,5 @@
-import ConsoleInput from './infrastructure/ConsoleInput';
-import ConsoleOutput from './infrastructure/ConsoleOutput';
+import ConsoleInput from './infrastructure/ConsoleInput.js';
+import ConsoleOutput from './infrastructure/ConsoleOutput.js';
 import Coach from './domain/Coach.js';
 import LunchManager from './domain/LunchManager.js';
 
@@ -16,10 +16,12 @@ class App {
   async play() {
     try {
       //코치 이름
-      const coaches = await ConsoleInput.read(
+      const coachesNames = await ConsoleInput.read(
         '코치의 이름을 입력해 주세요. (, 로 구분)\n'
       );
-      coaches.split(',').map((e) => e.trim()); // ['토미','제임스','포코']
+      const coaches = coachesNames
+        .split(',')
+        .map((name) => new Coach(name.trim())); // ['토미','제임스','포코']
 
       //못 먹는 메뉴 입력
       for (const coach of coaches) {
