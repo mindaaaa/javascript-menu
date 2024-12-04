@@ -18,3 +18,5 @@ class Category {
     this.menus = this.menus.filter((menu) => menu !== eatenMenu);
   }
 }
+
+export default Category;

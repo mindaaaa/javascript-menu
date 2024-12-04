@@ -1,8 +1,9 @@
+import Menu from './Menu';
 // 못 먹는 메뉴 갖고있기
 class Coach {
   constructor(name, menu) {
     this.name = name;
-    this.menu = menu;
+    this.menu = new Menu();
     this.dislikedMenus = {}; // 못 먹는 메뉴
     this.eatenMenus = [];
   }
