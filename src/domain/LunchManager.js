@@ -29,6 +29,8 @@ class LunchManager {
     });
   }
 
+  // Object.entries로도 풀어보기
+
   recommendDailyMenu() {
     const categoryName = this.categoryPicker.pickCategory();
     const category = this.categories.find(

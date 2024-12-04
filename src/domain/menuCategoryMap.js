@@ -9,3 +9,5 @@ export const menuCategoryMap = Object.entries(SAMPLE).reduce(
   },
   {}
 );
+
+// 메뉴로 클래스 만들기**
