@@ -5,7 +5,6 @@ class Coach {
     this.name = name;
     this.menu = new Menu();
     this.dislikedMenus = {}; // 못 먹는 메뉴
-    this.eatenMenus = {};
     this.availableMenus = {};
   }
 
@@ -38,12 +37,11 @@ class Coach {
     return this.availableMenus[category] || [];
   }
 
-  addEatenMenu(menu) {
-    const category = this.menu.getCategoryByMenu(menu);
-    if (!this.eatenMenus[category]) {
-      this.eatenMenus[category] = [];
-    }
-    this.eatenMenus[category].push(menu);
+  // 먹은 메뉴 filter
+  removeEatenMenu(category, eatenMenu) {
+    this.availableMenus[category] = this.availableMenus.filter(
+      menu !== eatenMenu
+    );
   }
 }
 

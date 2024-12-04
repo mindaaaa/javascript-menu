@@ -1,21 +1,17 @@
 class Category {
   // 먹은 메뉴 지워주기
-  constructor(category, menus) {
+  constructor(category, coach) {
     this.category = category;
-    this.menus = menus;
+    this.coach = coach;
   }
 
-  getAvailableMenus(coach) {
-    const dislikedMenus = coach.getDislikedMenusByCategory(this.category);
-    const eatenMenus = coach.eatenMenus || [];
-
-    return this.menus
-      .filter((menu) => !dislikedMenus.includes(menu))
-      .filter((menu) => !eatenMenus.includes(menu));
+  // 코치별 추천 가능한 메뉴 반환
+  getAvailableMenus() {
+    return this.coach.getAvailableMenusByCategory(this.category);
   }
 
   removeEatenMenu(eatenMenu) {
-    this.menus = this.menus.filter((menu) => menu !== eatenMenu);
+    this.coach.removeEatenMenu(this.category, eatenMenu);
   }
 }
 

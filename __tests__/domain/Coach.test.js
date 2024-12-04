@@ -49,4 +49,19 @@ describe('Coach 클래스 테스트', () => {
       coach.menu.getMenuByCategory('중식').filter((menu) => menu !== '짜장면')
     );
   });
+  test('addEatenMenu는 먹은 메뉴를 카테고리별로 올바르게 추가한다.', () => {
+    // given
+    const eatenMenu1 = '우동';
+    const eatenMenu2 = '김밥';
+
+    // when
+    coach.addEatenMenu(eatenMenu1);
+    coach.addEatenMenu(eatenMenu2);
+
+    // then
+    expect(coach.eatenMenus).toEqual({
+      일식: ['우동'],
+      한식: ['김밥'],
+    });
+  });
 });
