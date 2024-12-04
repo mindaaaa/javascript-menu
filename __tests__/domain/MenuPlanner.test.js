@@ -1,17 +1,24 @@
 import MenuPlanner from '../../src/domain/MenuPlanner';
+import { Randoms } from '@woowacourse/mission-utils';
+
+jest.mock('@woowacourse/mission-utils', () => ({
+  Randoms: {
+    shuffle: jest.fn(),
+  },
+}));
 
 const mockShuffles = (rows) => {
-  MissionUtils.Random.shuffle = jest.fn();
+  Randoms.shuffle = jest.fn();
 
   rows.reduce((acc, [firstNumber, numbers]) => {
     return acc.mockReturnValueOnce([
       firstNumber,
       ...numbers.filter((number) => number !== firstNumber),
     ]);
-  }, MissionUtils.Random.shuffle);
+  }, Randoms.shuffle);
 };
 
-describe.skip('랜덤 섞기 테스트', () => {
+describe('MenuPlanner 테스트', () => {
   let menuPlanner;
 
   beforeEach(() => {
@@ -24,8 +31,8 @@ describe.skip('랜덤 섞기 테스트', () => {
       [2, [2, 3, 4]],
     ]);
 
-    const result1 = MissionUtils.Random.shuffle([1, 2, 3]);
-    const result2 = MissionUtils.Random.shuffle([2, 3, 4]);
+    const result1 = Randoms.shuffle([1, 2, 3]);
+    const result2 = Randoms.shuffle([2, 3, 4]);
 
     expect(result1).toEqual([1, 2, 3]);
     expect(result2).toEqual([2, 3, 4]);
