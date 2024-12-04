@@ -23,11 +23,11 @@ class Coach {
 
   // 먹을 수 있는 배열 초기화
   initializeAvailableMenus() {
-    const categories = Obejct.keys(this.menu.getAllMenus());
+    const categories = Object.keys(this.menu.getAllMenus());
     categories.forEach((category) => {
       const menusByCategory = this.menu.getMenuByCategory(category);
       this.availableMenus[category] = menusByCategory.filter(
-        (menu) => !this.dislikedMenus[category].includes(menu)
+        (menu) => !this.dislikedMenus[category]?.includes(menu) //dislikedMenus가 정의되지 않을 가능성
       );
     });
   }

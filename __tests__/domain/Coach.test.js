@@ -1,44 +1,52 @@
 import Coach from '../../src/domain/Coach.js';
-import Menu from '../../src/domain/Menu.js';
 
 describe('Coach 클래스 테스트', () => {
-  let menu, coach;
+  let coach;
 
   beforeEach(() => {
-    menu = new Menu();
-    coach = new Coach('토미', menu);
+    coach = new Coach('토미');
   });
 
-  test('setDislikedMenus는 못 먹는 메뉴를 카테고리별로 올바르게 설정한다.', () => {
+  test('setDislikedMenus는 못 먹는 메뉴를 카테고리별로 올바르게 설정하고 availableMenus를 초기화한다.', () => {
     // given
-    coach.setDislikedMenus(['우동', '스시']);
-    coach.setDislikedMenus(['김밥']);
+    const dislikedMenus = ['우동', '스시', '김밥'];
 
     // when
-    const dislikedMenus = coach.getAllDislikedMenus();
+    coach.setDislikedMenus(dislikedMenus);
 
     // then
-    expect(dislikedMenus).toEqual({
+    expect(coach.dislikedMenus).toEqual({
       일식: ['우동', '스시'],
       한식: ['김밥'],
     });
+
+    expect(coach.getAvailableMenusByCategory('일식')).not.toContain('우동');
+    expect(coach.getAvailableMenusByCategory('일식')).not.toContain('스시');
+    expect(coach.getAvailableMenusByCategory('한식')).not.toContain('김밥');
   });
 
-  test('getDislikedMenusByCategory는 특정 카테고리의 못 먹는 메뉴를 반환한다.', () => {
+  test('initializeAvailableMenus는 먹을 수 있는 메뉴를 올바르게 설정한다.', () => {
     // given
-    coach.setDislikedMenus(['우동', '스시', '김밥']);
+    const dislikedMenus = ['김밥', '스파게티'];
+    coach.setDislikedMenus(dislikedMenus);
 
     // when...then
-    expect(coach.getDislikedMenusByCategory('일식')).toEqual(['우동', '스시']);
-    expect(coach.getDislikedMenusByCategory('한식')).toEqual(['김밥']);
-    expect(coach.getDislikedMenusByCategory('중식')).toEqual([]);
+    expect(coach.getAvailableMenusByCategory('한식')).not.toContain('김밥');
+    expect(coach.getAvailableMenusByCategory('양식')).not.toContain('스파게티');
   });
 
-  test('addEatenMenu는 먹은 메뉴를 목록에 추가한다.', () => {
+  test('getAvailableMenusByCategory는 특정 카테고리의 먹을 수 있는 메뉴를 반환한다.', () => {
     // given
-    coach.addEatenMenu('김밥');
+    const dislikedMenus = ['짜장면'];
+    coach.setDislikedMenus(dislikedMenus);
 
-    // when...then
-    expect(coach.eatenMenus).toContain('김밥');
+    // when
+    const availableMenus = coach.getAvailableMenusByCategory('중식');
+
+    // then
+    expect(availableMenus).not.toContain('짜장면');
+    expect(availableMenus).toEqual(
+      coach.menu.getMenuByCategory('중식').filter((menu) => menu !== '짜장면')
+    );
   });
 });
